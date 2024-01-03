@@ -6,18 +6,27 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import { DoubleArrowLeftIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import {
+  DoubleArrowLeftIcon,
+  GearIcon,
+  HamburgerMenuIcon,
+  MagnifyingGlassIcon,
+  PlusCircledIcon,
+} from "@radix-ui/react-icons";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useRef } from "react";
 // import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import UserItem from "@/components/main-page/user-item";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
+import NavItem from "@/components/main-page/nav-item";
+import { toast } from "sonner";
 
 export default function Navigation({ children }) {
   // const pathname = usePathname();
   const documents = useQuery(api.documents.getDocuments);
+  const createDoc = useMutation(api.documents.createDocuments);
   const navRef = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -27,6 +36,16 @@ export default function Navigation({ children }) {
     } else {
       navRef.current.resize(19);
     }
+  };
+
+  const handleCreate = () => {
+    const promise = createDoc({ title: "Untitled" });
+
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New Note created!",
+      error: "Failed to created new note.",
+    });
   };
 
   return (
@@ -54,6 +73,18 @@ export default function Navigation({ children }) {
           </div>
           <div>
             <UserItem />
+            <NavItem
+              isSearch
+              label="Search"
+              icon={MagnifyingGlassIcon}
+              onClick={() => {}}
+            />
+            <NavItem label="Settings" icon={GearIcon} onClick={() => {}} />
+            <NavItem
+              onClick={handleCreate}
+              label="New Page"
+              icon={PlusCircledIcon}
+            />
           </div>
           <div className="mt-4">
             {documents?.map((doc) => (
