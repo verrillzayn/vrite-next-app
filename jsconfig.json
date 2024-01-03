@@ -5,7 +5,8 @@
       "@/*": ["./src/*"],
       "@lib/*": ["/lib/*"],
       "@public/*": ["/public/*"],
-      "@models/*": ["/lib/mongo/models/*"]
+      "@models/*": ["/lib/mongo/models/*"],
+      "@convex/*": ["./convex/*"]
     }
   }
 }
