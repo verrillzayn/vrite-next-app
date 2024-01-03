@@ -1,7 +1,5 @@
 import CreateDocBtn from "@/components/main-page/create-doc-btn";
 import Username from "@/components/main-page/user";
-import { Button } from "@/components/ui/button";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 
 export default function DocumentsPage() {
