@@ -12,9 +12,12 @@ import { useRef } from "react";
 // import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import UserItem from "@/components/main-page/user-item";
+import { useQuery } from "convex/react";
+import { api } from "@convex/_generated/api";
 
 export default function Navigation({ children }) {
   // const pathname = usePathname();
+  const documents = useQuery(api.documents.getDocuments);
   const navRef = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -53,7 +56,9 @@ export default function Navigation({ children }) {
             <UserItem />
           </div>
           <div className="mt-4">
-            <p>Documents</p>
+            {documents?.map((doc) => (
+              <p key={doc._id}>{doc.title}</p>
+            ))}
           </div>
         </ResizablePanel>
         {!isMobile && (

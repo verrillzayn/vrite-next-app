@@ -1,3 +1,4 @@
+import CreateDocBtn from "@/components/main-page/create-doc-btn";
 import Username from "@/components/main-page/user";
 import { Button } from "@/components/ui/button";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
@@ -24,10 +25,7 @@ export default function DocumentsPage() {
         Welcome to <Username />
         &apos;s Vrite
       </h2>
-      <Button>
-        <PlusCircledIcon className="mr-2 h-4 w-4" />
-        Create a note
-      </Button>
+      <CreateDocBtn />
     </div>
   );
 }
