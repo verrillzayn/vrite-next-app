@@ -45,16 +45,18 @@ export default function DocumentList({ parentDocumentId, level = 0 }) {
 
   return (
     <>
-      <p
-        className={cn(
-          "hidden text-sm font-medium text-muted-foreground/80",
-          expanded && "last:block",
-          level === 0 && "hidden",
-        )}
-        style={{ paddingLeft: level ? `${level * 12 + 25}px` : undefined }}
-      >
-        No pages inside
-      </p>
+      {parentDocumentId && (
+        <p
+          className={cn(
+            "hidden text-sm font-medium text-muted-foreground/80",
+            expanded && "last:block",
+            level === 0 && "hidden",
+          )}
+          style={{ paddingLeft: level ? `${level * 12 + 25}px` : undefined }}
+        >
+          No pages inside
+        </p>
+      )}
       {documents.map((doc) => (
         <div key={doc._id}>
           <NavItem
