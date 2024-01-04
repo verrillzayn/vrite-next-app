@@ -10,7 +10,7 @@ export default function AuthLayout({ children }) {
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <Spinner size="lg" /> Please Wait...
+        <Spinner size="lg" />
       </div>
     );
   }
