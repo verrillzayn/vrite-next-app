@@ -68,5 +68,5 @@ export function Title({ initialData }) {
 }
 
 Title.Skeleton = function TitleSkeleton() {
-  return <Skeleton className="mb-1 h-7 w-20 rounded-md" />;
+  return <Skeleton className="mt-1 h-7 w-20 rounded-md" />;
 };
