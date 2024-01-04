@@ -1,10 +1,12 @@
 import { Inter } from "next/font/google";
-import { cn } from "@lib/utils/ui";
+
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-providers";
+import { ModalProviders } from "@/components/providers/modal-providers";
 
-import "@/style/globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@lib/utils/ui";
+import "@/style/globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -44,6 +46,7 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
             storageKey="vrite-theme"
           >
+            <ModalProviders />
             {children}
             <Toaster position="bottom-center" />
           </ThemeProvider>
