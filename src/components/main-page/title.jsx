@@ -36,7 +36,7 @@ export function Title({ initialData }) {
   };
 
   const onKeyDown = (e) => {
-    if (e.key === "enter") {
+    if (e.key === "Enter") {
       disableInput();
     }
   };
@@ -50,7 +50,7 @@ export function Title({ initialData }) {
           onClick={enableInput}
           onBlur={disableInput}
           onChange={onChange}
-          onKeyDown={onkeydown}
+          onKeyDown={onKeyDown}
           value={title}
           className="h-7 px-2 focus-visible:ring-transparent"
         />
