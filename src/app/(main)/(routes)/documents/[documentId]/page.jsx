@@ -1,7 +1,5 @@
+import DocumentPage from "@/components/documentId-page/document-page";
+
 export default function DocumentIdPages() {
-  return (
-    <div>
-      <div>Documents id</div>
-    </div>
-  );
+  return <DocumentPage />;
 }
