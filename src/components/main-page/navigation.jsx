@@ -31,12 +31,14 @@ import NavItem from "@/components/main-page/nav-item";
 import { toast } from "sonner";
 import DocumentList from "@/components/main-page/documents-list";
 import TrashBox from "@/components/main-page/trash-box";
+import { useSearch } from "@lib/hooks/use-search";
 
 export default function Navigation({ children }) {
   // const pathname = usePathname();
   const createDoc = useMutation(api.documents.createDocuments);
   const navRef = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const search = useSearch();
 
   const handleclick = () => {
     if (isMobile) {
@@ -85,7 +87,7 @@ export default function Navigation({ children }) {
               isSearch
               label="Search"
               icon={MagnifyingGlassIcon}
-              onClick={() => {}}
+              onClick={search.onOpen}
             />
             <NavItem label="Settings" icon={GearIcon} onClick={() => {}} />
             <NavItem
