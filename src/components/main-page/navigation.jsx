@@ -21,7 +21,7 @@ import {
   TrashIcon,
 } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import UserItem from "@/components/main-page/user-item";
@@ -33,8 +33,12 @@ import DocumentList from "@/components/main-page/documents-list";
 import TrashBox from "@/components/main-page/trash-box";
 import { useSearch } from "@lib/hooks/use-search";
 import { useSettings } from "@lib/hooks/use-settings";
+import { useParams } from "next/navigation";
+import Navbar from "@/components/main-page/navbar";
 
 export default function Navigation({ children }) {
+  const params = useParams();
+  const [isCollapsed, setIsCollapsed] = useState(false);
   // const pathname = usePathname();
   const createDoc = useMutation(api.documents.createDocuments);
   const navRef = useRef();
@@ -42,7 +46,7 @@ export default function Navigation({ children }) {
   const search = useSearch();
   const settings = useSettings();
 
-  const handleclick = () => {
+  const handleReset = () => {
     if (isMobile) {
       navRef.current.collapse();
     } else {
@@ -60,6 +64,20 @@ export default function Navigation({ children }) {
     });
   };
 
+  const handleclick = () => {
+    navRef.current.collapse();
+  };
+
+  useEffect(() => {
+    if (isMobile) {
+      navRef.current.collapse();
+      setIsCollapsed(true);
+    } else {
+      navRef.current.resize(19);
+      setIsCollapsed(false);
+    }
+  }, [isMobile]);
+
   return (
     <>
       <ResizablePanelGroup
@@ -67,12 +85,13 @@ export default function Navigation({ children }) {
         direction="horizontal"
       >
         <ResizablePanel
+          onCollapse={() => setIsCollapsed(true)}
           collapsedSize={0}
-          collapsible={isMobile ? true : false}
+          collapsible={true}
           ref={navRef}
           order={1}
           tagName="aside"
-          className="group/sidebar peer/sidebar relative z-[99999] flex h-full flex-col overflow-y-auto bg-secondary"
+          className="group/sidebar peer/sidebar duration-50 relative z-[99999] flex h-full flex-col overflow-y-auto bg-secondary transition-all ease-linear"
           minSize={isMobile ? 0 : 10}
           defaultSize={isMobile ? 0 : 19}
         >
@@ -118,21 +137,33 @@ export default function Navigation({ children }) {
           </div>
         </ResizablePanel>
         {!isMobile && (
-          <ResizableHandle className="h-full w-1 bg-secondary transition hover:bg-primary/15 peer-hover/sidebar:bg-primary/15" />
+          <ResizableHandle
+            onDoubleClick={handleReset}
+            className="h-full w-1 bg-secondary transition hover:bg-primary/15 peer-hover/sidebar:bg-primary/15"
+          />
         )}
 
         <ResizablePanel order={2} defaultSize={81} minSize={isMobile ? 0 : 55}>
-          {isMobile && (
+          {!!params.documentId ? (
+            <Navbar
+              isCollapsed={isCollapsed}
+              onMobile={() => {
+                navRef.current.resize(isMobile ? 100 : 19);
+                setIsCollapsed(false);
+              }}
+            />
+          ) : isCollapsed ? (
             <Button
               variant="ghost"
               size="icon"
               onClick={() => {
-                navRef.current.resize(100);
+                navRef.current.resize(isMobile ? 100 : 19);
+                setIsCollapsed(false);
               }}
             >
-              <HamburgerMenuIcon className="h-4 w-4" />
+              <HamburgerMenuIcon className="h-6 w-6 text-muted-foreground" />
             </Button>
-          )}
+          ) : null}
           {children}
         </ResizablePanel>
       </ResizablePanelGroup>
