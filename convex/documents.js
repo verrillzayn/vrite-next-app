@@ -303,7 +303,7 @@ export const removeIcon = mutation({
       throw new Error("Not authenticated");
     }
 
-    const existingDoc = ctx.db.get(args.id);
+    const existingDoc = await ctx.db.get(args.id);
 
     if (!existingDoc) {
       throw new Error("Document Not found");
