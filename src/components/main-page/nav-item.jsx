@@ -1,7 +1,10 @@
+import { useUser } from "@clerk/clerk-react";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
+  DotsHorizontalIcon,
   PlusCircledIcon,
+  TrashIcon,
 } from "@radix-ui/react-icons";
 import { cn } from "@lib/utils/ui";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,6 +12,15 @@ import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function NavItem({
   onClick,
@@ -22,9 +34,12 @@ export default function NavItem({
   level = 0,
   onExpand,
 }) {
+  const { user } = useUser();
+
   const router = useRouter();
 
   const createDoc = useMutation(api.documents.createDocuments);
+  const archiveDoc = useMutation(api.documents.archiveDoc);
 
   const ChevronIcon = expanded ? ChevronDownIcon : ChevronRightIcon;
 
@@ -50,6 +65,19 @@ export default function NavItem({
       loading: "Creating a new note...",
       success: "New Note created!",
       error: "Failed to created new note.",
+    });
+  };
+
+  const onArchive = (e) => {
+    e.stopPropagation();
+
+    if (!id) return;
+    const promise = archiveDoc({ id });
+
+    toast.promise(promise, {
+      loading: "Moving note to trash...",
+      success: "Note moved to trash!",
+      error: "Failed to archive note.",
     });
   };
 
@@ -84,14 +112,40 @@ export default function NavItem({
         </kbd>
       )}
       {!!id && (
-        <div
-          role="button"
-          onClick={onCreate}
-          className="ml-auto flex items-center gap-x-2"
-        >
-          <div className="ml-auto h-full rounded-lg opacity-0 hover:bg-neutral-300 group-hover:opacity-100 dark:hover:bg-neutral-600">
+        <div className="ml-auto flex items-center gap-x-2">
+          <div
+            role="button"
+            onClick={onCreate}
+            className="ml-auto h-full rounded-sm p-0.5 opacity-0 hover:bg-neutral-300 group-hover:opacity-100 dark:hover:bg-neutral-600"
+          >
             <PlusCircledIcon className="h-4 w-4 text-muted-foreground" />
           </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
+              <div
+                role="button"
+                className="ml-auto h-full rounded-sm p-0.5 opacity-0 hover:bg-neutral-300 group-hover:opacity-100 dark:hover:bg-neutral-600 "
+              >
+                <DotsHorizontalIcon className="h-4 w-4 text-muted-foreground" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              onClick={(e) => e.stopPropagation()}
+              className="w-60"
+              align="start"
+              side="right"
+              forceMount
+            >
+              <DropdownMenuItem className="cursor-pointer" onClick={onArchive}>
+                <TrashIcon className="mr-2 h-4 w-4" />
+                Delete
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <div className="p-2 text-xs text-muted-foreground">
+                Last edited by: {user?.fullName}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )}
     </div>
