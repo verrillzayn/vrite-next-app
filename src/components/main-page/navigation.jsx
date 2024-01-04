@@ -7,11 +7,18 @@ import {
 } from "@/components/ui/resizable";
 
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import {
   DoubleArrowLeftIcon,
   GearIcon,
   HamburgerMenuIcon,
   MagnifyingGlassIcon,
   PlusCircledIcon,
+  TrashIcon,
 } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useRef } from "react";
@@ -23,6 +30,7 @@ import { api } from "@convex/_generated/api";
 import NavItem from "@/components/main-page/nav-item";
 import { toast } from "sonner";
 import DocumentList from "@/components/main-page/documents-list";
+import TrashBox from "@/components/main-page/trash-box";
 
 export default function Navigation({ children }) {
   // const pathname = usePathname();
@@ -88,6 +96,17 @@ export default function Navigation({ children }) {
           </div>
           <div className="mt-4">
             <DocumentList />
+            <Popover>
+              <PopoverTrigger className="mt-4 h-full w-full">
+                <NavItem label="Trash" icon={TrashIcon} />
+              </PopoverTrigger>
+              <PopoverContent
+                side={isMobile ? "bottom" : "right"}
+                className="w-72  p-0"
+              >
+                <TrashBox />
+              </PopoverContent>
+            </Popover>
           </div>
         </ResizablePanel>
         {!isMobile && (
