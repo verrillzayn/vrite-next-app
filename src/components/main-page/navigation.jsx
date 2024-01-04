@@ -18,14 +18,14 @@ import { useRef } from "react";
 // import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import UserItem from "@/components/main-page/user-item";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
 import NavItem from "@/components/main-page/nav-item";
 import { toast } from "sonner";
+import DocumentList from "@/components/main-page/documents-list";
 
 export default function Navigation({ children }) {
   // const pathname = usePathname();
-  const documents = useQuery(api.documents.getDocuments);
   const createDoc = useMutation(api.documents.createDocuments);
   const navRef = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -87,9 +87,7 @@ export default function Navigation({ children }) {
             />
           </div>
           <div className="mt-4">
-            {documents?.map((doc) => (
-              <p key={doc._id}>{doc.title}</p>
-            ))}
+            <DocumentList />
           </div>
         </ResizablePanel>
         {!isMobile && (
