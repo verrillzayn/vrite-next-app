@@ -32,6 +32,7 @@ import { toast } from "sonner";
 import DocumentList from "@/components/main-page/documents-list";
 import TrashBox from "@/components/main-page/trash-box";
 import { useSearch } from "@lib/hooks/use-search";
+import { useSettings } from "@lib/hooks/use-settings";
 
 export default function Navigation({ children }) {
   // const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function Navigation({ children }) {
   const navRef = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const search = useSearch();
+  const settings = useSettings();
 
   const handleclick = () => {
     if (isMobile) {
@@ -89,7 +91,11 @@ export default function Navigation({ children }) {
               icon={MagnifyingGlassIcon}
               onClick={search.onOpen}
             />
-            <NavItem label="Settings" icon={GearIcon} onClick={() => {}} />
+            <NavItem
+              label="Settings"
+              icon={GearIcon}
+              onClick={settings.onOpen}
+            />
             <NavItem
               onClick={handleCreate}
               label="New Page"
