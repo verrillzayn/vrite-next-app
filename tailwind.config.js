@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      transitionDuration: {
+        50: "50ms",
+      },
       fontFamily: {
         sans: ["var(--font-sans)"],
       },
