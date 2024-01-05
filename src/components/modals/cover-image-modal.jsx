@@ -22,6 +22,7 @@ export const CoverImageModal = () => {
       id: params.documentId,
       coverImage: { imageUrl: file.url, imageKey: file.key },
     });
+    coverImage.onClose();
   };
 
   return (
