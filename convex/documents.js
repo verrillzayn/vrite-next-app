@@ -347,10 +347,7 @@ export const removeCoverImage = mutation({
     }
 
     const document = await ctx.db.patch(args.id, {
-      coverImage: {
-        imageUrl: undefined,
-        imageKey: undefined,
-      },
+      coverImage: undefined,
     });
 
     return document;
