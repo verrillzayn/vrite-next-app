@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { Cross2Icon, ImageIcon } from "@radix-ui/react-icons";
 
@@ -78,3 +79,7 @@ export default function Cover({ imageUrl, imageKey, preview }) {
     </div>
   );
 }
+
+Cover.Skeleton = function CoverSkeleton() {
+  return <Skeleton className="h-[12vh] w-full" />;
+};
