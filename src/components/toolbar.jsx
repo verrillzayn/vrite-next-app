@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@convex/_generated/api";
 import { Cross2Icon, FaceIcon, ImageIcon } from "@radix-ui/react-icons";
 import { useMutation } from "convex/react";
+import { useCoverImage } from "@lib/hooks/use-image-cover";
 import { useRef, useState } from "react";
 import TextareaAutoSize from "react-textarea-autosize";
 
@@ -13,6 +14,8 @@ export function Toolbar({ initialData, preview }) {
   const inputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialData.title);
+
+  const coverImage = useCoverImage();
 
   const enableInput = () => {
     if (preview) return;
@@ -92,9 +95,9 @@ export function Toolbar({ initialData, preview }) {
             </Button>
           </IconPicker>
         )}
-        {!initialData.icon && !preview && (
+        {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={coverImage.onOpen}
             className="text-xs text-muted-foreground"
             variant="outline"
             size="sm"
