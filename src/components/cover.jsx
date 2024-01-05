@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useParams } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 
 import { Cross2Icon, ImageIcon } from "@radix-ui/react-icons";
@@ -8,8 +10,20 @@ import { Cross2Icon, ImageIcon } from "@radix-ui/react-icons";
 import { cn } from "@lib/utils/ui";
 import { useCoverImage } from "@lib/hooks/use-image-cover";
 
+import { useMutation } from "convex/react";
+import { api } from "@convex/_generated/api";
+
 export default function Cover({ imageUrl, ImageKey, preview }) {
   const coverImage = useCoverImage();
+  const params = useParams();
+
+  const removeCoverImage = useMutation(api.documents.removeCoverImage);
+
+  const onRemove = () => {
+    removeCoverImage({
+      id: params.documentId,
+    });
+  };
 
   return (
     <div
@@ -34,7 +48,7 @@ export default function Cover({ imageUrl, ImageKey, preview }) {
             Change Cover
           </Button>
           <Button
-            onClick={() => {}}
+            onClick={onRemove}
             variant="outline"
             size="sm"
             className="text-xs text-muted-foreground"
