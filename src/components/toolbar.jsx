@@ -47,7 +47,6 @@ export function Toolbar({ initialData, preview }) {
   };
 
   const onIconSelect = (icon) => {
-    console.log("asd");
     updateDoc({
       id: initialData._id,
       icon,
