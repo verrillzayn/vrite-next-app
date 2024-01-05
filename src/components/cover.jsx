@@ -38,16 +38,25 @@ export default function Cover({ imageUrl, imageKey, preview }) {
       className={cn(
         "group relative h-[33vh] w-full",
         !imageUrl && "h-[10vh]",
-        imageUrl && "bg-muted",
+        // imageUrl && "bg-muted",
       )}
     >
       {!!imageUrl && (
-        <Image src={imageUrl} fill alt="Image Cover" className="object-cover" />
+        <>
+          <div className="z-10 h-full animate-pulse bg-primary/20" />
+          <Image
+            priority
+            src={imageUrl}
+            fill
+            alt="Image Cover"
+            className="object-cover"
+          />
+        </>
       )}
       {imageUrl && !preview && (
         <div className="absolute bottom-5 right-5 flex items-center gap-x-2 opacity-0 group-hover:opacity-100">
           <Button
-            onClick={coverImage.onOpen}
+            onClick={() => coverImage.onReplace(imageKey)}
             variant="outline"
             size="sm"
             className="text-xs text-muted-foreground"
