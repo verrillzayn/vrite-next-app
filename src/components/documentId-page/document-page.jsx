@@ -1,15 +1,27 @@
 "use client";
 
 import Cover from "@/components/cover";
+import { Editor } from "@/components/editor";
 import { Toolbar } from "@/components/toolbar";
+
 import { Skeleton } from "@/components/ui/skeleton";
+
 import { api } from "@convex/_generated/api";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 
 export default function DocumentPage({ params }) {
   const document = useQuery(api.documents.getDocById, {
     documentId: params.documentId,
   });
+
+  const updateDoc = useMutation(api.documents.updateDoc);
+
+  const onChange = (content) => {
+    updateDoc({
+      id: params.documentId,
+      content,
+    });
+  };
 
   if (document === undefined) {
     return (
@@ -39,6 +51,7 @@ export default function DocumentPage({ params }) {
       />
       <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
         <Toolbar initialData={document} />
+        <Editor onChange={onChange} initialContent={document?.content} />
       </div>
     </div>
   );
