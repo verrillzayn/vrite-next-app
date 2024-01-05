@@ -74,3 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+#tippy-11,
+#mantine-rt-dropdown,
+#mantine-r1u-dropdown {
+  z-index: 999999 !important;
+}
