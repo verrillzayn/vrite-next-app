@@ -325,3 +325,34 @@ export const removeIcon = mutation({
     return document;
   },
 });
+
+export const removeCoverImage = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    const userId = identity.subject;
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const existingDoc = await ctx.db.get(args.id);
+
+    if (!existingDoc) {
+      throw new Error("Document Not found");
+    }
+
+    if (existingDoc.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const document = await ctx.db.patch(args.id, {
+      coverImage: {
+        imageUrl: undefined,
+        imageKey: undefined,
+      },
+    });
+
+    return document;
+  },
+});
