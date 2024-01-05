@@ -40,7 +40,7 @@ export default function Navbar({ children }) {
         {isAuthenticated && !isLoading && (
           <>
             <Button variant="ghost" size="sm" asChild>
-              <Link className="pl-0" href="/documents">
+              <Link className="pl-0 md:pl-3" href="/documents">
                 Enter Vrite
               </Link>
             </Button>
