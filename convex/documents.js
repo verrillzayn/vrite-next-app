@@ -261,7 +261,12 @@ export const updateDoc = mutation({
     id: v.id("documents"),
     title: v.optional(v.string()),
     content: v.optional(v.string()),
-    coverImage: v.optional(v.string()),
+    coverImage: v.optional(
+      v.object({
+        ImageUrl: v.string(),
+        imageKey: v.string(),
+      }),
+    ),
     icon: v.optional(v.string()),
     isPublished: v.optional(v.boolean()),
   },
