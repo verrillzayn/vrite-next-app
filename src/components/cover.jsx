@@ -13,16 +13,24 @@ import { useCoverImage } from "@lib/hooks/use-image-cover";
 import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
 
-export default function Cover({ imageUrl, ImageKey, preview }) {
+import { removeImage } from "@/app/actions";
+
+export default function Cover({ imageUrl, imageKey, preview }) {
   const coverImage = useCoverImage();
   const params = useParams();
 
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
 
-  const onRemove = () => {
-    removeCoverImage({
-      id: params.documentId,
-    });
+  const onRemove = async () => {
+    try {
+      await removeCoverImage({
+        id: params.documentId,
+      });
+      await removeImage(imageKey);
+      // await utapi.deleteFiles(ImageKey);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
