@@ -18,7 +18,7 @@ export default function UserItem() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div
-          className="my-2 ml-2 flex w-[80%] items-center justify-between rounded-lg border px-3 py-2 text-sm shadow-sm hover:bg-primary/5"
+          className="my-2 ml-2 flex w-[80%] items-center justify-between rounded-lg border px-3 py-2 text-sm shadow-sm hover:bg-primary/5 dark:border-primary/15"
           role="button"
         >
           <div className="flex max-w-[150px] items-center gap-x-2">

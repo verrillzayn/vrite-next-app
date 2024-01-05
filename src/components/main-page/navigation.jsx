@@ -102,7 +102,10 @@ export default function Navigation({ children }) {
           <div
             onClick={handleclick}
             role="button"
-            className="absolute right-2 top-3 h-6 w-6 rounded-md text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600"
+            className={cn(
+              "absolute right-2 top-3 h-6 w-6 rounded-md text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600",
+              isMobile ? "opacity-100" : "opacity-0",
+            )}
           >
             <DoubleArrowLeftIcon className="h-6 w-6" />
           </div>
