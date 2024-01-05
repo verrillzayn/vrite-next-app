@@ -35,6 +35,7 @@ import { useSearch } from "@lib/hooks/use-search";
 import { useSettings } from "@lib/hooks/use-settings";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/main-page/navbar";
+import { cn } from "@lib/utils/ui";
 
 export default function Navigation({ children }) {
   const params = useParams();
@@ -91,7 +92,7 @@ export default function Navigation({ children }) {
           ref={navRef}
           order={1}
           tagName="aside"
-          className="group/sidebar peer/sidebar duration-50 relative z-[99999] flex h-full flex-col overflow-y-auto bg-secondary transition-all ease-linear"
+          className="group/sidebar peer/sidebar relative z-[99999] flex h-full flex-col overflow-y-auto bg-secondary transition-all duration-50 ease-linear"
           minSize={isMobile ? 0 : 10}
           defaultSize={isMobile ? 0 : 19}
         >
@@ -139,7 +140,10 @@ export default function Navigation({ children }) {
         {!isMobile && (
           <ResizableHandle
             onDoubleClick={handleReset}
-            className="h-full w-1 bg-secondary transition hover:bg-primary/15 peer-hover/sidebar:bg-primary/15"
+            className={cn(
+              "hidden h-full w-1 bg-secondary transition hover:bg-primary/15 peer-hover/sidebar:bg-primary/15",
+              !isCollapsed && "block",
+            )}
           />
         )}
 
