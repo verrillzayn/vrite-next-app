@@ -5,7 +5,7 @@ import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import { uploadFiles } from "@lib/utils/uploadthing";
 import "@blocknote/core/style.css";
 
-export const Editor = ({ onChange, initialContent, editable }) => {
+const Editor = ({ onChange, initialContent, editable }) => {
   const { resolvedTheme } = useTheme();
 
   const handleUploadImg = async (files) => {
@@ -36,3 +36,5 @@ export const Editor = ({ onChange, initialContent, editable }) => {
     </div>
   );
 };
+
+export default Editor;
