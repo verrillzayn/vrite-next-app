@@ -9,6 +9,7 @@ import { api } from "@convex/_generated/api";
 
 import { useMutation } from "convex/react";
 import { useParams } from "next/navigation";
+import { removeImage } from "@/app/actions";
 
 export const CoverImageModal = () => {
   const coverImage = useCoverImage();
@@ -18,10 +19,14 @@ export const CoverImageModal = () => {
 
   const onUploadComplete = async (res) => {
     const file = res[0];
+
     await updateDoc({
       id: params.documentId,
       coverImage: { imageUrl: file.url, imageKey: file.key },
     });
+    if (coverImage.imgKey) {
+      await removeImage(coverImage.imgKey);
+    }
     coverImage.onClose();
   };
 
