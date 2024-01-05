@@ -35,7 +35,7 @@ export default function Navbar({ onMobile, isCollapsed }) {
 
   return (
     <>
-      <nav className="flex w-full items-center gap-x-4 bg-background px-3 py-2 dark:bg-[#1F1F1F]">
+      <nav className="flex w-full items-center gap-x-4 border-b bg-background px-3 py-2 shadow-sm dark:bg-[#1F1F1F]">
         {isCollapsed && (
           <Button variant="ghost" size="icon" onClick={onMobile}>
             <HamburgerMenuIcon className="h-6 w-6 text-muted-foreground" />
