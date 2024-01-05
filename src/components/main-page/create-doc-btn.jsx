@@ -5,12 +5,16 @@ import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreateDocBtn() {
   const createDoc = useMutation(api.documents.createDocuments);
+  const router = useRouter();
 
   const onCreate = () => {
-    const promise = createDoc({ title: "Untitled" });
+    const promise = createDoc({ title: "Untitled" }).then((docId) =>
+      router.push(`/documents/${docId}`),
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",

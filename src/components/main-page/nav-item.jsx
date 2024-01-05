@@ -56,7 +56,7 @@ export default function NavItem({
         if (!expanded) {
           onExpand?.();
         }
-        // router.push(`/documents/${docId}`)
+        router.push(`/documents/${docId}`);
       },
     );
 
@@ -71,6 +71,7 @@ export default function NavItem({
     e.stopPropagation();
 
     if (!id) return;
+    router.push("/documents");
     const promise = archiveDoc({ id });
 
     toast.promise(promise, {

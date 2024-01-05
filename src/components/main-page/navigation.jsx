@@ -33,13 +33,14 @@ import DocumentList from "@/components/main-page/documents-list";
 import TrashBox from "@/components/main-page/trash-box";
 import { useSearch } from "@lib/hooks/use-search";
 import { useSettings } from "@lib/hooks/use-settings";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Navbar from "@/components/main-page/navbar";
 import { cn } from "@lib/utils/ui";
 
 export default function Navigation({ children }) {
   const params = useParams();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const router = useRouter();
   // const pathname = usePathname();
   const createDoc = useMutation(api.documents.createDocuments);
   const navRef = useRef();
@@ -56,7 +57,9 @@ export default function Navigation({ children }) {
   };
 
   const handleCreate = () => {
-    const promise = createDoc({ title: "Untitled" });
+    const promise = createDoc({ title: "Untitled" }).then((docId) =>
+      router.push(`/documents/${docId}`),
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",
