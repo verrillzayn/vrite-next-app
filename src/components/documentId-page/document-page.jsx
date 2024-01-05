@@ -1,5 +1,6 @@
 "use client";
 
+import Cover from "@/components/cover";
 import { Toolbar } from "@/components/toolbar";
 import { api } from "@convex/_generated/api";
 import { useQuery } from "convex/react";
@@ -19,7 +20,10 @@ export default function DocumentPage({ params }) {
 
   return (
     <div className="pb-40">
-      <div className="h-[30vh]" />
+      <Cover
+        imageUrl={document?.coverImage?.imageUrl}
+        imageKey={document?.coverImage?.imageKey}
+      />
       <div className="mx-auto  md:max-w-3xl lg:max-w-4xl">
         <Toolbar initialData={document} />
       </div>
