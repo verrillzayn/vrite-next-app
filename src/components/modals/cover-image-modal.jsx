@@ -33,6 +33,7 @@ export const CoverImageModal = () => {
         </DialogHeader>
 
         <UploadDropzone
+          className="ut-button:bg-primary ut-button:text-primary-foreground ut-button:shadow ut-button:hover:bg-primary/90 ut-label:text-blue-800 dark:ut-label:text-blue-400 dark:ut-readying:border-muted-foreground dark:ut-ready:border-muted-foreground dark:ut-uploading:border-t-muted-foreground"
           endpoint="coverImage"
           onClientUploadComplete={(res) => {
             // Do something with the response
