@@ -44,7 +44,7 @@ export default function Navbar({ onMobile, isCollapsed }) {
         )}
         <div className="flex w-full items-center justify-between">
           <Title initialData={document} />
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 py-0.5">
             <Publish initialData={document} />
             <NavbarMenu documentId={document._id} />
           </div>
