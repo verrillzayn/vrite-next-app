@@ -31,16 +31,27 @@ export default function Navbar({ children }) {
               </Button>
             </SignInButton>
             <SignInButton mode="modal">
-              <Button size="sm">Get Vrite free</Button>
+              <Button className="mr-5" size="sm">
+                Get Vrite free
+              </Button>
             </SignInButton>
           </>
         )}
         {isAuthenticated && !isLoading && (
           <>
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/documents">Enter Vrite</Link>
+              <Link className="pl-0" href="/documents">
+                Enter Vrite
+              </Link>
             </Button>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonBox: "mr-9",
+                },
+              }}
+              afterSignOutUrl="/"
+            />
           </>
         )}
         <ModeToggle />
