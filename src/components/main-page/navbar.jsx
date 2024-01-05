@@ -6,6 +6,7 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Title } from "@/components/main-page/title";
 import { Banner } from "@/components/main-page/banner";
 import { NavbarMenu } from "@/components/main-page/navbar-menu";
+import { Publish } from "@/components/main-page/publish";
 
 import { Button } from "@/components/ui/button";
 
@@ -44,6 +45,7 @@ export default function Navbar({ onMobile, isCollapsed }) {
         <div className="flex w-full items-center justify-between">
           <Title initialData={document} />
           <div className="flex items-center gap-x-2">
+            <Publish initialData={document} />
             <NavbarMenu documentId={document._id} />
           </div>
         </div>
