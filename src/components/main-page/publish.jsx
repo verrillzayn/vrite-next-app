@@ -70,7 +70,7 @@ export const Publish = ({ initialData }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="sm" variant="ghost">
+        <Button size="sm">
           Publish
           {initialData.isPublished && (
             <GlobeIcon className="ml-2 h-4 w-4 text-sky-500" />
@@ -128,7 +128,7 @@ export const Publish = ({ initialData }) => {
               className="w-full text-xs"
               size="sm"
             >
-              Publish
+              Publish!
             </Button>
           </div>
         )}
